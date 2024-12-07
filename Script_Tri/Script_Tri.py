@@ -11,22 +11,45 @@ import os
 import shutil
 
 # On défini les chemins qui vont être utiliser
-Origin_path="Chemin du dossier a modifier"
+Origin_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Images"
 
-Image_path="C:\Users\hadri\OneDrive\Bureau\R_Script\Images"
-Archives_path="C:\Users\hadri\OneDrive\Bureau\R_Script\Archives"
-Documents_path="C:\Users\hadri\OneDrive\Bureau\R_Script\Documents"
-Video_path="C:\Users\hadri\OneDrive\Bureau\R_Script\Video"
-Other_path="C:\Users\hadri\OneDrive\Bureau\R_Script\Autre"
-Presentation_path="C:\Users\hadri\OneDrive\Bureau\R_Script\Presentation"
-Dossiers_path="C:\Users\hadri\OneDrive\Bureau\R_Script\Dossiers"
+Image_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Images"
+Archives_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Archives"
+Documents_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Documents"
+Videos_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Video"
+Presentation_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Presentation"
+Other_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Autre"
+Musiques_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Musiques"
+Dossiers_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Dossiers"
 
 # On définie les mots clé
 extensions = {
     "Images": [".jpg", ".jpeg", ".png", ".gif",".apng", ".bmp", ".tif", ".tiff",".webp",".svg",".avif"],
+    "Archives": [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".iso", ".tgz", ".tar.gz", ".z", ".cab", ".deb",".rpm"],
     "Documents": [".pdf", ".docx",".doc", ".txt", ".xlsx",".xls",".csv",".ods",".pub",".rtf",".md",".tex",".epub",".mobi",".json",".xml",".log"],
+    "Videos": [".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv",".webm", ".3gp", ".m4v", ".ts"],
     "Presentation":[".ppt ",".pptx",".odp"],
-    "Vidéos": [".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv",".webm", ".3gp", ".m4v", ".ts"],
     "Musique": [".mp3", ".wav", ".flac", ".aac", ".ogg",".m4a", ".wma", ".alac", ".aiff"],
-    "Archives": [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2",".xz", ".iso", ".tgz", ".tar.gz", ".z", ".cab",".deb", ".rpm"]
+
 }
+
+for file in os.listdir(Origin_path):
+    file_path = os.path.join(Origin_path, file)
+    filename, extension = os.path.splitext(file_path)
+    if not(os.path.isfile(file_path)):
+        shutil.move(file_path, Dossiers_path)
+    match extension:
+        case ext if ext in extensions["Images"]:
+            shutil.move(file_path, Image_path)
+        case ext if ext in extensions["Documents"]:
+            shutil.move(file_path, Documents_path)
+        case ext if ext in extensions["Presentation"]:
+            shutil.move(file_path, Presentation_path)
+        case ext if ext in extensions["Videos"]:
+            shutil.move(file_path, Videos_path)
+        case ext if ext in extensions["Archives"]:
+            shutil.move(file_path, Archives_path)
+        case ext if ext in extensions["Musique"]:
+            shutil.move(file_path, Musiques_path)
+        case _:
+            shutil.move(file_path, Other_path)
