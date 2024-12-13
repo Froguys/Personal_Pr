@@ -30,16 +30,6 @@ def clean_string(filename):
         filename=filename[:i]
     return filename
 
-def doublons (filename,filepath,ext_path):
-    for file in os.listdir(ext_path):
-        file2_path=os.path.join(ext_path,file)
-        file2_name=os.path.splitext(file2path)[0]
-
-
-
-
-
-
 # On définie les mots clé
 extensions = {
     "Images": [".jpg", ".jpeg", ".png", ".gif",".apng", ".bmp", ".tif", ".tiff",".webp",".svg",".avif"],
