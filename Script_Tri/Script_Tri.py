@@ -10,9 +10,9 @@ Objectif: trier les fichiers ici particulièrement download
 import os
 import shutil
 
-# On défini les chemins qui vont être utiliser
-Origin_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Images"
 
+# On défini les chemins qui vont être utiliser
+Origin_path=r"C:\Users\hadri\OneDrive\Bureau\Tri_Test"
 Image_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Images"
 Archives_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Archives"
 Documents_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Documents"
@@ -22,6 +22,14 @@ Other_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Autre"
 Musiques_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Musiques"
 Dossiers_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Dossiers"
 
+def clean_string(filename):
+    if filename[-2]=="-":
+        filename=filename[:-2]
+    if filename.endswith(")"):
+        i=filename.rfind("(")
+        filename=filename[:i]
+    return filename
+
 # On définie les mots clé
 extensions = {
     "Images": [".jpg", ".jpeg", ".png", ".gif",".apng", ".bmp", ".tif", ".tiff",".webp",".svg",".avif"],
@@ -30,14 +38,15 @@ extensions = {
     "Videos": [".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv",".webm", ".3gp", ".m4v", ".ts"],
     "Presentation":[".ppt ",".pptx",".odp"],
     "Musique": [".mp3", ".wav", ".flac", ".aac", ".ogg",".m4a", ".wma", ".alac", ".aiff"],
-
 }
 
+#Corp du script
 for file in os.listdir(Origin_path):
     file_path = os.path.join(Origin_path, file)
     filename, extension = os.path.splitext(file_path)
     if not(os.path.isfile(file_path)):
-        shutil.move(file_path, Dossiers_path)
+        final_path=Dossiers_path
+        shutil.move(file_path, final_path)
     match extension:
         case ext if ext in extensions["Images"]:
             shutil.move(file_path, Image_path)
