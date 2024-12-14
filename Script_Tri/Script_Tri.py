@@ -30,6 +30,8 @@ def clean_string(filename):
         filename=filename[:i]
     return filename
 
+
+
 # On définie les mots clé
 extensions = {
     "Images": [".jpg", ".jpeg", ".png", ".gif",".apng", ".bmp", ".tif", ".tiff",".webp",".svg",".avif"],
