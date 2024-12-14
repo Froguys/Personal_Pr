@@ -9,7 +9,7 @@ Objectif: trier les fichiers ici particulièrement download
 
 import os
 import shutil
-
+import re
 
 # On défini les chemins qui vont être utiliser
 Origin_path=r"C:\Users\hadri\OneDrive\Bureau\Tri_Test"
@@ -23,13 +23,24 @@ Musiques_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Musiques"
 Dossiers_path=r"C:\Users\hadri\OneDrive\Bureau\R_Script\Dossiers"
 
 def clean_string(filename):
-    if filename[-2]=="-":
-        filename=filename[:-2]
-    if filename.endswith(")"):
-        i=filename.rfind("(")
-        filename=filename[:i]
-    return filename
+    # Expression régulière pour nom_fichier-n
+    pattern1 = r'^(.+)-\d+$' # ^ début de la chaine  (.+) caputre le nom du fichier -\d+  tiret suivit d'un ou plusieurs chiffres.
+    # Expression régulière pour nom_fichier(n)
+    pattern2 = r'^(.+)\(\d+\)$'# même chose mais\( suivit de (
 
+    # Vérifie si la chaîne correspond à l'un des motifs et extrait le nom de fichier
+    match1 = re.match(pattern1, filename)
+    match2 = re.match(pattern2, filename)
+
+    if match1:
+        # Retourne la partie sans -n
+        return match1.group(1)
+    elif match2:
+        # Retourne la partie sans (n)
+        return match2.group(1)
+
+    # Si aucun des motifs ne correspond, retourne le nom tel quel
+    return filename
 
 
 # On définie les mots clé
