@@ -42,7 +42,14 @@ def clean_string(filename):
     # Si aucun des motifs ne correspond, retourne le nom tel quel
     return filename
 
+def est_un_doublon(filename,ext_path):
+    filename=clean_string(filename)
 
+    for file in os.listdir(ext_path):
+        file_path=os.path.join(ext_path,file)
+        if file.startswith(filename) and not(os.path.isfile(file_path)):
+            size=len(os.listdir(file_path))+1
+            filename_modif=f"{filename}_{size}"
 # On définie les mots clé
 extensions = {
     "Images": [".jpg", ".jpeg", ".png", ".gif",".apng", ".bmp", ".tif", ".tiff",".webp",".svg",".avif"],
